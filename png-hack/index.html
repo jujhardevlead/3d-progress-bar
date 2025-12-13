@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- josdirksenlearning-threejs -->
+    <title>Example 06.07 - Text geometry</title>
+    <script type="text/javascript" src="libs/three.js"></script>
+
+    <script type="text/javascript" src="libs/stats.js"></script>
+    <script type="text/javascript" src="libs/dat.gui.js"></script>
+    <script type="text/javascript" src="assets/fonts/helvetiker_regular.typeface.js"></script>
+    <script type="text/javascript" src="assets/fonts/helvetiker_bold.typeface.js"></script>
+    <script type="text/javascript" src="assets/fonts/bitstream_vera_sans_mono_roman.typeface.js"></script>
+    <script type="text/javascript" src="assets/fonts/Bulara_Medium.js"></script>
+
+    <style>
+        body {
+            /* set margin to 0 and overflow to hidden, to go fullscreen */
+            margin: 0;
+            overflow: hidden;
+            background-image: url("https://media.istockphoto.com/id/1360266685/vector/night-sky-realistic-starry-cosmos-texture-magic-glowing-galaxy-with-bright-stars-shining.jpg?s=612x612&w=0&k=20&c=Mn37BXxJIohIeJENLCdJnOmpRPY1Ud2FgH9eOadkMHg=");
+            background-size: 100% auto;
+        }
+    </style>
+</head>
+<body>
+
+<div style="width: 100%; z-index: 3;position: absolute; left: 0px; filter: drop-shadow(2px 4px 6px black)">
+    <center>
+        <img width="50%" 
+        src="https://png.pngtree.com/png-clipart/20220604/original/pngtree-pin-maps-target-png-image_7947782.png" />
+    </center>
+</div>
+
+<div id="Stats-output">
+</div>
+<!-- Div which will hold the Output -->
+<div id="WebGL-output">
+</div>
+
+
+
+<!-- Javascript code that runs our Three.js examples -->
+<script type="text/javascript">
+
+    // Reload on resize to center 
+    window.addEventListener('resize', (e) => {
+        window.location.reload(false); // Passing 'false' reloads from cache, 'true' from server
+    });
+
+    // once everything is loaded, we run our Three.js stuff.
+    function init() {
+
+        var stats = initStats();
+
+        // create a scene, that will hold all our elements such as objects, cameras and lights.
+        var scene = new THREE.Scene();
+
+        // create a camera, which defines where we're looking at.
+        var camera = new THREE.PerspectiveCamera(330, window.innerWidth / window.innerHeight, 100, 9900);
+
+        // create a render and set the size
+        var webGLRenderer = new THREE.WebGLRenderer( { alpha: true } );
+        webGLRenderer.setSize(window.innerWidth, window.innerHeight);
+        webGLRenderer.shadowMapEnabled = true;
+
+        // position and point the camera to the center of the scene
+        camera.position.x = 100;
+        camera.position.y = 100;
+        camera.position.z = 5000;
+        camera.lookAt(new THREE.Vector3(300, 1, 1));
+
+        var dirLight = new THREE.DirectionalLight();
+        dirLight.position.set(25, 23, 15);
+        scene.add(dirLight);
+
+        var dirLight2 = new THREE.DirectionalLight();
+        dirLight2.position.set(-25, 23, 15);
+        scene.add(dirLight2);
+    
+
+        // add the output of the renderer to the html element
+        document.getElementById("WebGL-output").appendChild(webGLRenderer.domElement);
+
+        // call the render function
+        var step = 0;
+
+
+        var text1;
+        var text2;
+
+        var controls = new function () {
+
+            this.size = 90;
+            this.height = 90;
+            this.bevelThickness = 2;
+            this.bevelSize = 0.5;
+            this.bevelEnabled = true;
+            this.bevelSegments = 3;
+            this.bevelEnabled = true;
+            this.curveSegments = 12;
+            this.steps = 1;
+            this.font = "bulara";
+            this.weight = "normal";
+//            this.style = "italics";
+
+            this.asGeom = function () {
+                // remove the old plane
+                scene.remove(text1);
+                scene.remove(text2);
+                // create a new one
+
+                var options = {
+                    size: controls.size,
+                    height: controls.height,
+                    weight: controls.weight,
+                    font: controls.font,
+                    bevelThickness: controls.bevelThickness,
+                    bevelSize: controls.bevelSize,
+                    bevelSegments: controls.bevelSegments,
+                    bevelEnabled: controls.bevelEnabled,
+                    curveSegments: controls.curveSegments,
+                    steps: controls.steps
+                };
+
+               
+
+                const geometry9 = new THREE.BoxGeometry( 500, 500, 10 );
+                const material9 = new THREE.MeshBasicMaterial( { color: "indianred" } );
+                const cube = new THREE.Mesh( geometry9, material9 );
+                cube.position.x = 300;
+                scene.add( cube );
+
+                const geometry2 = new THREE.BoxGeometry( 250, 250, 10 );
+                const material2 = new THREE.MeshBasicMaterial( { color: "pink" } );
+                const cube2 = new THREE.Mesh( geometry2, material2 );
+                cube2.position.x = 900;
+
+                var axis = new THREE.Vector3(4, 0, 7).normalize();
+                cube2.rotateOnAxis(axis, 2);
+                //cube2.position.y = 100;
+                //cube2.position.z = 5000;
+                scene.add( cube2 );
+
+                // Right most
+                const geometry3 = new THREE.BoxGeometry( 350, 350, 10 );
+                const material3 = new THREE.MeshBasicMaterial( { color: "orange" } );
+                const cube3 = new THREE.Mesh( geometry3, material3 );
+                cube3.position.x = -700;
+                //cube2.position.y = 100;
+                //cube2.position.z = 5000;
+
+                var axis2 = new THREE.Vector3(4, 0, 7).normalize();
+                cube3.rotateOnAxis(axis2, -2);
+
+                scene.add( cube3 );
+            };
+
+        };
+
+        controls.asGeom();
+
+        // var gui = new dat.GUI();
+        // gui.add(controls, 'size', 0, 200).onChange(controls.asGeom);
+        // gui.add(controls, 'height', 0, 200).onChange(controls.asGeom);
+        // gui.add(controls, 'font', ['bitstream vera sans mono', 'helvetiker']).onChange(controls.asGeom);
+        // gui.add(controls, 'bevelThickness', 0, 10).onChange(controls.asGeom);
+        // gui.add(controls, 'bevelSize', 0, 10).onChange(controls.asGeom);
+        // gui.add(controls, 'bevelSegments', 0, 30).step(1).onChange(controls.asGeom);
+        // gui.add(controls, 'bevelEnabled').onChange(controls.asGeom);
+        // gui.add(controls, 'curveSegments', 1, 30).step(1).onChange(controls.asGeom);
+        // gui.add(controls, 'steps', 1, 5).step(1).onChange(controls.asGeom);
+        render();
+        function createMesh(geom) {
+
+            // assign two materials
+//            var meshMaterial = new THREE.MeshLambertMaterial({color: 0xff5555});
+//            var meshMaterial = new THREE.MeshNormalMaterial();
+            var meshMaterial = new THREE.MeshPhongMaterial({
+                specular: 0xffffff,
+                color: 0xeeffff,
+                shininess: 100,
+                metal: true
+            });
+//            meshMaterial.side=THREE.DoubleSide;
+            // create a multimaterial
+            var plane = THREE.SceneUtils.createMultiMaterialObject(geom, [meshMaterial]);
+            return plane;
+        }
+
+        function render() {
+            stats.update();
+            requestAnimationFrame(render);
+            webGLRenderer.render(scene, camera);
+        }
+
+        function initStats() {
+
+            var stats = new Stats();
+            stats.setMode(0); // 0: fps, 1: ms
+
+            // Align top-left
+            stats.domElement.style.position = 'absolute';
+            stats.domElement.style.left = '0px';
+            stats.domElement.style.top = '0px';
+
+            document.getElementById("Stats-output").appendChild(stats.domElement);
+
+            return stats;
+        }
+    }
+    window.onload = init;
+</script>
+</body>
+</html>
