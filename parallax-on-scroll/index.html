@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- josdirksenlearning-threejs -->
+    <title>Example 06.07 - Text geometry</title>
+    <script type="text/javascript" src="libs/three.js"></script>
+
+    <script>addEventListener("scroll", (event) => {
+        if (document.getElementById('overlay').style.left == '45px') {
+            document.getElementById('overlay').style.left = '50px';
+        }
+     })
+    </script>
+
+    <style>
+        body {
+            /* set margin to 0 and overflow to hidden, to go fullscreen */
+            margin: 0;
+            padding-left:5%;
+        }
+
+        pre {
+            font-size: 6em;
+            font-family: serif;
+        }
+
+        img {
+            height: 500px;
+            position: relative;
+            left:54px;
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+<div>
+    <pre>
+    <span title="vancouver">バンクーバー・</span>
+    <span title="is a">イズ<span style="color:violet">・</span>アー</span><span style="color:blue">・</span><span title="city">シティー・</span>
+    <span title="known for">ノーン・フォー</span>
+    is tri beauty
+    Nature is key to one the wind
+    Two the water
+    Thee the mountiens are third. 
+
+    <img src="assets/back.png" />
+    <img id="overlay" src="assets/fore.png" onclick="document.getElementById('overlay').style.left += '45px'" 
+    style="position:relative;top:-641px;margin-bottom: -530px;"/>
+
+    <span title="Yes Yes">イエス X੨</span> come see this picture
+    Northside Near stanaely park
+    with a very beautiful lake
+    on the bridge ther 
+    crosses bike lanes and easily
+    accessable in 29 minute ride. 
+    </pre>
+
+    <div>
+
+    
+</div>
+</body>
+</html>
