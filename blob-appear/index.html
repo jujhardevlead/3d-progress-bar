@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            font-size: 5em;
+        }
+
+        .dot {
+            width: 1366px;
+            height: 1540px;
+            background-color: white;
+            position: absolute;
+            z-index: 40;
+            left:0%;
+        }
+
+        #dot1 {
+            transition: width 1s, color 2s, height 1s, background-color 1s, left 1s, top 1s;
+        }
+
+        #text1 {
+            margin: '10px';
+            font-size: 0.1em;
+            color:aliceblue;
+            transition: width 1s, color 3s, font-size 1s, background-color 1s, left 1s, top 1s;
+        }
+    </style>
+
+</head>
+<body>
+<div>
+    Even the most erudite mundane scholar cannot approach the transcendental plane unless he submits himself to transcendental sound with a receptive mood
+    <br />
+    <br />
+Lord Caitanya = Called Viśvambhara in early life
+<br />
+<br />
+<span class="dot" id="dot1"></span>
+<span id="text1">Lord Śrī Caitanya Mahāprabhu does not belong to the mundane plane of the three qualitative modes. He belongs to the transcendental plane beyond the reach of the imperfect sense perception of a living being.</span> 
+<br />
+<br />
+<br />
+<br />
+</div>
+
+</body>
+    <script>
+        window.addEventListener("scroll", function(event) {
+            var top = this.scrollY;
+            document.getElementById('text1').style.color = "white";
+            document.getElementById('dot1').style.width = '12395px';
+            document.getElementById('dot1').style.height = '1540px';
+            
+            if (top > 100) {
+                document.getElementById('dot1').style.left = "30%";
+                document.getElementById('dot1').style.marginTop = "10%";
+                document.getElementById('dot1').style.width = "0px";
+                document.getElementById('text1').style.color = "black";
+                document.getElementById('text1').style.fontSize = "1em";
+                document.getElementById('dot1').style.height = "0px";
+            } else {
+                document.getElementById('dot1').style.width = '2395px';
+                document.getElementById('dot1').style.height = '540px';
+                document.getElementById('dot1').style.left = "";
+                document.getElementById('dot1').style.marginTop = "";
+                document.getElementById('text1').style.fontSize = "0.1em";
+                document.getElementById('text1').style.color = "white";
+            }
+        }, false);
+    </script>
+</html>
