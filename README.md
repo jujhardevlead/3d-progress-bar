@@ -21,6 +21,9 @@
 
 <img width="3652" height="1876" alt="Screenshot 2025-12-13 073320" src="https://github.com/user-attachments/assets/0478a44d-a684-4b51-b439-b743e500f7db" />
 
+## blob appear
+
+![Animation-ezgif com-optimize](https://github.com/user-attachments/assets/8d1485a4-2ff4-4b76-90e1-22353ef34bc7)
 
 ## install 
 
@@ -29,6 +32,7 @@ browse to folder
 ``` npm i ```
 
 ``` npm start ```
+
 
 
 
